@@ -1,6 +1,13 @@
 # Meeting Minutes Skill
 
-회의록 작성 Aside 스킬. 회의 목적에 따라 골든 템플릿을 적용하고 인테이크-작성-윤문-검수 파이프라인으로 일관된 수준의 회의록을 생성한다.
+회의록 작성 스킬. **Aside**와 **Claude Code** 모두 지원한다. 회의 목적에 따라 골든 템플릿을 적용하고 인테이크-작성-윤문-검수 파이프라인으로 일관된 수준의 회의록을 생성한다.
+
+## 호출 방법
+
+| 플랫폼 | 호출 | 설명 |
+|---|---|---|
+| **Claude Code** | `/meeting-minutes` | 슬래시 커맨드. 뒤에 지시를 붙임 (예: `/meeting-minutes 브랜드 운영팀 인터뷰 정리해줘`) |
+| **Aside** | 자동 감지 | "회의록", "미팅노트", "인터뷰 노트" 등 키워드 입력 시 스킬이 자동 로드 |
 
 ## 지원 목적
 
@@ -15,39 +22,58 @@
 
 ## 설치 방법
 
-### 방법 A: Aside Project로 등록 (권장)
+### 공통: 클론
 
-1. 이 저장소를 클론한다
-   ```
-   git clone https://github.com/talkingbeer/Claude_Skills_meeting-minutes.git
-   ```
-2. Aside에서 클론한 폴더를 Project로 등록한다
-3. 해당 Project 세션에서 스킬이 자동 활성화된다
-4. 업데이트: `git pull`
-
-### 방법 B: 계정 스킬로 복사
-
-클론한 폴더 내용을 계정 스킬 폴더에 복사한다.
-
+```bash
+git clone https://github.com/talkingbeer/Claude_Skills_meeting-minutes.git
 ```
+
+### Claude Code
+
+클론한 폴더를 프로젝트 디렉터리로 사용하거나, 커맨드 파일만 복사한다.
+
+```bash
+# 프로젝트 디렉터리에 통째로 사용 (권장)
+cd Claude_Skills_meeting-minutes
+claude
+# → /meeting-minutes 로 호출
+
+# 또는 기존 프로젝트에 커맨드만 복사
+mkdir -p <프로젝트>/.claude/commands
+cp Claude_Skills_meeting-minutes/.claude/commands/meeting-minutes.md <프로젝트>/.claude/commands/
+
+# 또는 사용자 전역 커맨드로 설치
+mkdir -p ~/.claude/commands
+cp Claude_Skills_meeting-minutes/.claude/commands/meeting-minutes.md ~/.claude/commands/
+```
+
+### Aside
+
+**방법 A: Project로 등록 (권장)**
+1. Aside에서 클론한 폴더를 Project로 등록
+2. 해당 Project 세션에서 스킬이 자동 활성화
+3. 업데이트: `git pull`
+
+**방법 B: 계정 스킬로 복사**
+```bash
 # Windows
 xcopy /E /I Claude_Skills_meeting-minutes "%USERPROFILE%\.aside\u\0\skills\user\meeting-minutes"
 
-# macOS/Linux  
+# macOS/Linux
 cp -r Claude_Skills_meeting-minutes ~/.aside/u/0/skills/user/meeting-minutes
 ```
-
-계정 인덱스(`u\0`, `u\1` 등)는 사용자마다 다를 수 있다. 모든 세션에서 활성화되지만 업데이트마다 재복사가 필요하다.
+계정 인덱스(`u\0`, `u\1` 등)는 사용자마다 다를 수 있다.
 
 ## 구성
 
 ```
-SKILL.md                  스킬 본문 (워크플로우, 규칙)
+SKILL.md                              Aside 스킬 본문
+.claude/commands/meeting-minutes.md   Claude Code 슬래시 커맨드 (/meeting-minutes)
 assets/
-  design.css              공용 디자인 시스템 (IBM Carbon 무채색, 나눔고딕)
+  design.css                          공용 디자인 시스템 (IBM Carbon 무채색, 나눔고딕)
 references/
-  review-protocol.md      독립 검수 10항목 프로토콜
-  reliability-tags.md     신뢰도 4단 태그 체계와 HTML 범례
+  review-protocol.md                  독립 검수 10항목 프로토콜
+  reliability-tags.md                 신뢰도 4단 태그 체계와 HTML 범례
 ```
 
 ## 의존 스킬
