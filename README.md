@@ -6,7 +6,7 @@
 
 | 플랫폼 | 호출 | 설명 |
 |---|---|---|
-| **Claude Code** | `/meeting-minutes` | 슬래시 커맨드. 뒤에 지시를 붙임 (예: `/meeting-minutes 브랜드 운영팀 인터뷰 정리해줘`) |
+| **Claude Code** | `/mm` | 슬래시 커맨드. 뒤에 지시를 붙임 (예: `/mm 브랜드 운영팀 인터뷰 정리해줘`) |
 | **Aside** | 자동 감지 | "회의록", "미팅노트", "인터뷰 노트" 등 키워드 입력 시 스킬이 자동 로드 |
 
 ## 지원 목적
@@ -36,16 +36,18 @@ git clone https://github.com/talkingbeer/Claude_Skills_meeting-minutes.git
 # 프로젝트 디렉터리에 통째로 사용 (권장)
 cd Claude_Skills_meeting-minutes
 claude
-# → /meeting-minutes 로 호출
+# → /mm 으로 호출
 
 # 또는 기존 프로젝트에 커맨드만 복사
 mkdir -p <프로젝트>/.claude/commands
-cp Claude_Skills_meeting-minutes/.claude/commands/meeting-minutes.md <프로젝트>/.claude/commands/
+cp Claude_Skills_meeting-minutes/.claude/commands/mm.md <프로젝트>/.claude/commands/
 
 # 또는 사용자 전역 커맨드로 설치
 mkdir -p ~/.claude/commands
-cp Claude_Skills_meeting-minutes/.claude/commands/meeting-minutes.md ~/.claude/commands/
+cp Claude_Skills_meeting-minutes/.claude/commands/mm.md ~/.claude/commands/
 ```
+
+스킬 본체(자연어 자동 감지 + `design.css`/`references/` 참조)까지 쓰려면 별도로 저장소 전체를 `~/.claude/skills/meeting-minutes/`에도 복사한다.
 
 ### Aside
 
@@ -68,7 +70,7 @@ cp -r Claude_Skills_meeting-minutes ~/.aside/u/0/skills/user/meeting-minutes
 
 ```
 SKILL.md                              Aside 스킬 본문
-.claude/commands/meeting-minutes.md   Claude Code 슬래시 커맨드 (/meeting-minutes)
+.claude/commands/mm.md                Claude Code 슬래시 커맨드 (/mm)
 assets/
   design.css                          공용 디자인 시스템 (IBM Carbon 무채색, 나눔고딕)
 references/
